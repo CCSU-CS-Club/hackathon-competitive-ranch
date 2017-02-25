@@ -6,23 +6,30 @@ import java.util.HashMap;
 public class BaseConverter {
 
     private int base, leastBase;
-    private int numberToConvert;
+    private int numberToConvert, lowerBound;
     private StringBuilder newNumber = new StringBuilder();
     private HashMap<Integer, String> baseLookup;
 
 
     public BaseConverter(int numberToConvert, int base) {
         this.base = base;
+        this.leastBase = base;
         this.numberToConvert = numberToConvert;
     }
 
-    public int convertBase() {
-        int remainder, quotient;
-        while(true) {
-            remainder= calculateRemainder(numberToConvert, base);
-
+    public int getLargestBase() {
+        while (true) {
+            String currentNumber = toBaseB(numberToConvert, base);
+            if (Pattern.matches("[a-zA-Z]", currentNumber)) {
+                base++;
+            } else {
+                int runningNumber = Integer.parseInt(currentNumber);
+                if(runningNumber >= leastBase && runningNumber < numberToConvert ) {
+                    return runningNumber;
+                }
+            }
+        }
     }
-
     private int calculateQuotient(int number, int base){
         return numberToConvert / base;
     }
@@ -31,7 +38,28 @@ public class BaseConverter {
     }
 
 
+    private char decimalToBaseB(int input)
+    {
+        if (input >= 0 && input <= 9)
+        {
+            String str = String.valueOf(input);
+            return str.charAt(0);
+        } else {
+            return (char) ('a' + (input - 10));
+        }
+    }
 
+    private String toBaseB(int input, int base)
+    {
+        String result = "";
+        while (input > 0) {
+            int remainder = input % base;
+            input = input / base;
+            result = decimalToBaseB(remainder) + result;
+        }
+
+        return result;
+    }
     private void initHashMap(){
         baseLookup = new HashMap<Integer, String>();
 
