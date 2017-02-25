@@ -13,20 +13,29 @@ public class Main {
 
     private static ArrayList<Point> coordinates = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(args[0]));
+    public static void main(String[] args){
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(args[0]));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         String inputText;
         int numberOfCities;
         boolean flag = true;
-        while ((inputText = br.readLine()) != null) {
-            if (flag) {
-                numberOfCities = Integer.parseInt(inputText);
-                flag = false;
-            } else {
-                StringTokenizer st = new StringTokenizer(inputText);
-                Point p = new Point(Double.parseDouble(st.nextElement().toString()), Double.parseDouble(st.nextElement().toString()));
-                coordinates.add(p);
+        try {
+            while ((inputText = br.readLine()) != null) {
+                if (flag) {
+                    numberOfCities = Integer.parseInt(inputText);
+                    flag = false;
+                } else {
+                    StringTokenizer st = new StringTokenizer(inputText);
+                    Point p = new Point(Double.parseDouble(st.nextElement().toString()), Double.parseDouble(st.nextElement().toString()));
+                    coordinates.add(p);
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 //        coordinates.add(new Point(-1.0,5.0));
 //        coordinates.add(new Point(1.0,6.0));
@@ -37,10 +46,14 @@ public class Main {
 
         double finalDistance = totalDistance % (Math.pow(10.0, 9.0) + 7);
         //System.out.print(finalDistance);
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(args[1])))) {
-            writer.write(Integer.parseInt(finalDistance + "") + "");
+        try {
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(args[1])))) {
+                writer.write((int)finalDistance + "");
 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
