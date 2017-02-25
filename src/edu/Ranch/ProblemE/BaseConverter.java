@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
  */
 public class BaseConverter {
 
-    private int base, leastBase, currentLeastNumber;
-    private int numberToConvert, lowerBound;
+    private long base, leastBase, currentLeastNumber;
+    private long numberToConvert, lowerBound;
     private StringBuilder newNumber = new StringBuilder();
     private HashMap<Integer, String> baseLookup;
 
 
-    public BaseConverter(int numberToConvert, int lowerBound) {
+    public BaseConverter(long numberToConvert, long lowerBound) {
         this.lowerBound = lowerBound ;
         this.leastBase = 11;
         this.base = 11;
@@ -21,7 +21,7 @@ public class BaseConverter {
         this.currentLeastNumber = numberToConvert;
     }
 
-    public int getLargestBase() {
+    public long getLargestBase() {
         Pattern pattern = Pattern.compile("[a-zA-Z]");
         while (base<=lowerBound) {
             String currentNumber = convert(numberToConvert, base);
@@ -38,27 +38,22 @@ public class BaseConverter {
         }
         return leastBase;
     }
-    private int calculateQuotient(int number, int base){
-        return numberToConvert / base;
-    }
-    private int calculateRemainder(int number, int base){
+    private long calculateRemainder(long number, long base){
         return number % base;
     }
 
-
-//
-    private String convert(int number, int base)
+    private String convert(long number, long base)
     {
-        int quotient = number / base;
-        int remainder = number % base;
+        long quotient = number / base;
+        long remainder = number % base;
 
         if (quotient == 0) // base case
         {
-            return Integer.toString(remainder);
+            return Long.toString(remainder);
         }
         else
         {
-            return convert(quotient, base) + Integer.toString(remainder);
+            return convert(quotient, base) + Long.toString(remainder);
         }
     }
     private void initHashMap(){

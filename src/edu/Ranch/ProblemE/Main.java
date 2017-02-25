@@ -10,14 +10,14 @@ public class Main {
 
     public static void main(String[] args) {
         String inputText;
-        int numberToConvert = 0, lowerBound = 0;
+        long numberToConvert = 0, lowerBound = 0;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(args[1]));
+            BufferedReader br = new BufferedReader(new FileReader(args[0]));
             inputText = br.readLine();
             StringTokenizer st = new StringTokenizer(inputText);
 
-            numberToConvert = (int) st.nextElement();
-            lowerBound = (int) st.nextElement();
+            numberToConvert = Long.parseLong(st.nextElement().toString());
+            lowerBound = Long.parseLong(st.nextElement().toString());
 
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
@@ -26,11 +26,11 @@ public class Main {
         }
         BaseConverter baseConverter = new BaseConverter(numberToConvert,lowerBound);
 
-        int output = baseConverter.getLargestBase();
+        long output = baseConverter.getLargestBase();
 
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(args[2]), "utf-8"))) {
-            writer.write(output);
+                new FileOutputStream(args[1])))) {
+            writer.write(output + "");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -39,4 +39,5 @@ public class Main {
             e.printStackTrace();
         }
     }
+
 }
