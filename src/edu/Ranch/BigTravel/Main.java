@@ -48,40 +48,14 @@ public class Main {
         return abs(a.getX() - b.getX()) + abs(a.getY() -b.getY());
     }
 
-    private static double calculateAllDistance(ArrayList<Point>points){
+    private static double calculateAllDistance(ArrayList<Point>points) {
         double totalDistance = 0;
-        for(int i = 0; i < points.size(); i++){
-             for(int j = i; j < points.size(); j++){
-                totalDistance+= calculateDistance(points.get(i),points.get(j));
+        for (int i = 0; i < points.size(); i++) {
+            for (int j = i; j < points.size(); j++) {
+                totalDistance += calculateDistance(points.get(i), points.get(j));
             }
         }
 
         return totalDistance;
     }
-
-    static class Point {
-        private double x,y;
-
-        public Point(double x, double y){
-            this.x = x;
-            this.y = y;
-        }
-        public double getX() {
-            return x;
-        }
-
-        public void setX(double x) {
-            this.x = x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public void setY(double y) {
-            this.y = y;
-        }
-    }
-
-
 }
