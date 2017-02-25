@@ -51,7 +51,7 @@ public class Main {
     private static double calculateAllDistance(ArrayList<Point>points){
         double totalDistance = 0;
         for(int i = 0; i < points.size(); i++){
-            for(int j = i; j < points.size(); j++){
+             for(int j = i; j < points.size(); j++){
                 totalDistance+= calculateDistance(points.get(i),points.get(j));
             }
         }
