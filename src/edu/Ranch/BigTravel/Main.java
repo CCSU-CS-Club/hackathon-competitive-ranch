@@ -59,7 +59,7 @@ public class Main {
         return totalDistance;
     }
 
-    class Point {
+    static class Point {
         private double x,y;
 
         public Point(double x, double y){
